@@ -1,0 +1,11 @@
+.pytest_cache/
+amb/
+.coverage
+
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+data/
+*.pth
