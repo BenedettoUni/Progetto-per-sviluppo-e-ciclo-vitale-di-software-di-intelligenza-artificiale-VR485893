@@ -3,6 +3,7 @@ pytest
 pytest-cov
 torch
 torchvision
+lightning
 scikit-learn
 matplotlib
 seaborn

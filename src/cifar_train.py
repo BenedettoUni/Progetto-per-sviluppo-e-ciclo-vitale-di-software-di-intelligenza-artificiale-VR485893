@@ -7,7 +7,6 @@ from torchvision import transforms
 from torchvision.datasets import CIFAR10
 import lightning as L
 
-# Encoder e Decoder semplici
 class Encoder(nn.Module):
     def __init__(self):
         super().__init__()
