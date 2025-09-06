@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ml_devops_project"
+version = "0.1.0"
+description = "Progetto universitario di ML con pipeline DevOps e Docker"
+authors = [
+    {name="Benedetto Tessarini", email="benedetto.tessarini@studenti.univr.it"}
+]
+readme = "README.md"
+requires-python = ">=3.10, <3.11"
+license = {text="MIT"}
+[tool.poetry.dependencies]
+pylint = "^3.3.8"
+pytest = "^8.4.2"
+pytest-cov = "^6.3.0"
+torch = "^2.8.0"
+torchvision = "^0.23.0"
+lightning = "^2.5.5"
+scikit-learn = "^1.7.1"
+matplotlib = "^3.10.6"
+seaborn = "^0.13.2"
+tqdm = "^4.67.1"
