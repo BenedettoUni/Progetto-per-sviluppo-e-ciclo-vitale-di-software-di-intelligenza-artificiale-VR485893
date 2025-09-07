@@ -1,20 +1,49 @@
-name: Deploy Python 3.12
-on: [push]
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
-  build:
+  build-test:
     runs-on: windows
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-    - name: install dependecies
-      run: |
-        make install
-    - name: Lint
-      run: |
-        make Lint
-    - name: Test
-      run: |
-        make Test
+      # Step 1: Clona il repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      # Step 3: Installa dipendenze
+      - name: Install dependencies
+        run: make install
+
+      # Step 4: Linting
+      - name: Run linting
+        run: make lint
+
+      # Step 5: Unit test
+      - name: Run tests
+        run: make test
+
+      # Step 6: Build package Python
+      - name: Build package
+        run: make build
+
+      # Step 7: Build Docker image
+      - name: Build Docker image
+        run: make docker-build
+
+      # Step 8: Salva artifact (es. modello o pacchetto)
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-package
+          path: dist/
