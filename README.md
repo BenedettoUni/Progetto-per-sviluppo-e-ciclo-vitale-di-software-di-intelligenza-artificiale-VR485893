@@ -14,9 +14,13 @@ tramite docker
 
 comandi make
 make install -> installa dipendenze
+
 make lint -> esegue linting 
+
 make test -> esegue i test (nella cartella tests)
+
 make build -> crea pacchetto python usando il file pyproject.toml
+
 make clean -> pulisce cartelle temporanee
 
 (make lint e make clean non funzionano su windows ma vanno su linux)
