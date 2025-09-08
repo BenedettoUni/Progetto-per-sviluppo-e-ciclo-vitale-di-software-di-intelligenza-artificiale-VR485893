@@ -4,9 +4,8 @@ install:
 	@echo "Installation complete. You can now run the project."
 
 lint:
-	pylint --disable=R,C src/*.py tests/*.py
+	PYTHONPATH=. python -m pylint --disable=R,C src/*.py tests/*.py
 	@echo "Linting complete."
-
 test:
 	python -m pytest -VV --cov=src tests/
 	@echo "Testing complete."
