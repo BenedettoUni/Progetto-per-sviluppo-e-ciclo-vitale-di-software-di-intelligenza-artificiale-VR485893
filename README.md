@@ -13,6 +13,7 @@ tramite docker
 2) docker run trainer         per eseguire il container
 
 comandi make
+
 make install -> installa dipendenze
 
 make lint -> esegue linting 
