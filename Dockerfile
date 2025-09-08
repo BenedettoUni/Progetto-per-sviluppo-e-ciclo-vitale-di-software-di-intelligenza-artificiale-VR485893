@@ -6,6 +6,6 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY src/ src/
+COPY . .
 
-CMD ["python", "-u", "src/train.py"]
+CMD ["python", "-u", "src/cifar_train.py"]

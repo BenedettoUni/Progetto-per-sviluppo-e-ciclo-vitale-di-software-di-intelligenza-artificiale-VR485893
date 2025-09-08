@@ -4,7 +4,7 @@ install:
 	@echo "Installation complete. You can now run the project."
 
 lint:
-	pylint --disable=R, C src/*.py tests/*.py
+	pylint --disable=R,C src/*.py tests/*.py
 	@echo "Linting complete."
 
 test:
@@ -14,12 +14,6 @@ test:
 build:
 	python -m build
 	@echo "Build complete. Check the dist/ directory."
-
-docker-build:
-	docker build -t ml-devops:latest .
-
-docker-run:
-	docker run --rm ml-devops:latest
 
 clean:
 	rm -rf dist/ build/ *.egg-info .pytest_cache __pycache__

@@ -36,7 +36,7 @@ class LitAutoEncoder(L.LightningModule):
         self.encoder = encoder
         self.decoder = decoder
 
-    def training_step(self, batch, batch_idx):
+    def training_step(self, batch):
         x, _ = batch
         x = x.view(x.size(0), -1)
         z = self.encoder(x)        
@@ -59,9 +59,13 @@ dataset = CIFAR10(root=os.getcwd(), train=True, download=True, transform=transfo
 train_loader = DataLoader(dataset, batch_size=64, shuffle=True)
 
 # Creazione modello e training
-encoder = Encoder()
-decoder = Decoder()
-autoencoder = LitAutoEncoder(encoder, decoder)
+encoder_model = Encoder()
+decoder_model = Decoder()
+autoencoder = LitAutoEncoder(encoder_model, decoder_model)
 
 trainer = L.Trainer(max_epochs=5) 
 trainer.fit(autoencoder, train_dataloaders=train_loader)
+
+# salvo modello 
+os.makedirs("results", exist_ok=True) #per docker
+torch.save(autoencoder.state_dict(), "results/model.pt")

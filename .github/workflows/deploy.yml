@@ -2,48 +2,58 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: "main" 
 
 jobs:
   build-test:
-    runs-on: windows
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Clona il repository
+      #Clona il repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Setup Python
+      #Setup Python
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      # Step 3: Installa dipendenze
+      #Installa dipendenze
       - name: Install dependencies
         run: make install
 
-      # Step 4: Linting
+      #Linting
       - name: Run linting
         run: make lint
 
-      # Step 5: Unit test
+      #Unit test
       - name: Run tests
         run: make test
 
-      # Step 6: Build package Python
+      #Build package Python
       - name: Build package
         run: make build
 
-      # Step 7: Build Docker image
+      #Build Docker image
       - name: Build Docker image
-        run: make docker-build
+        run: docker build -t cifar_trainer .
+      
+      #run the docker container to train
+      - name: Run training container
+        run: docker run --name cifar_trainer_container cifar_trainer
+      
+      #extract model.pt file from the container
+      - name: copy model.pt from container
+        run: docker cp cifar_trainer_container:/app/results/model.pt model.pt
 
-      # Step 8: Salva artifact (es. modello o pacchetto)
+      #upload final tensor.pt as artifact
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
-          name: dist-package
-          path: dist/
+          name: trained-model
+          path: model.pt
+      
+      #clean up container
+      - name: Remove container
+        run: docker rm cifar_trainer_container
