@@ -36,7 +36,7 @@ class LitAutoEncoder(L.LightningModule):
         self.encoder = encoder
         self.decoder = decoder
 
-    def training_step(self, batch):
+    def training_step(self, batch, _batch_idx):
         x, _ = batch
         x = x.view(x.size(0), -1)
         z = self.encoder(x)        
