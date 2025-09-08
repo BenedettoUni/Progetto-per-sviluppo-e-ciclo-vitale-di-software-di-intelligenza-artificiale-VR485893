@@ -69,3 +69,5 @@ trainer.fit(autoencoder, train_dataloaders=train_loader)
 # salvo modello 
 os.makedirs("results", exist_ok=True) #per docker
 torch.save(autoencoder.state_dict(), "results/model.pt")
+
+#commento test
